@@ -59,6 +59,6 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-ios/*
+
 android/app/build/
 android/.gradle
