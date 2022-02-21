@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 const screen = Dimensions.get('screen');
 
-const HomeStyle = StyleSheet.create({
+const Home = StyleSheet.create({
   page: {
     alignItems: 'center' 
   },
@@ -14,7 +14,7 @@ const HomeStyle = StyleSheet.create({
     marginTop: 20
   },
   newsBlock: {
-    height: 260,
+    // height: 260,
     width: 370,
     // borderWidth: 1,
     alignItems: 'center'
@@ -50,15 +50,80 @@ const HomeStyle = StyleSheet.create({
     marginBottom: 10,
   },
   newsTitle: {
+    color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
+    lineHeight: 28
   },
   newsContent: {
+    color: 'black',
     fontSize: 14,
+    lineHeight: 24
+  },
+  vaccineBlock: {
+    width: 370,
+    alignItems: 'center'
+  },
+  vaccineHeader: {
+    wdith: 350,
+    alignSelf: 'flex-start',
+    paddingVertical: 15,
+    marginLeft: 10.5
+  },
+  vaccinesImg: {
+    width: 350,
+    height: screen.height / 5,
+    marginBottom: 20
+  },
+  vaccinesName: {
+    color: 'white',
+    fontSize: 24,
+    margin: 10
   }
   
 });
 
+const VaccineInfo = StyleSheet.create({
+  vaccineImg: {
+    width: screen.width,
+    height: screen.height / 3,
+    // marginBottom: 20
+  },
+  goBack: {
+    height: 25,
+    width: 25,
+    margin: 20
+  },
+  intro: {
+    // width: 370,
+    // marginLeft: 20
+    padding: 20
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    lineHeight: 36,
+    marginBottom: 10
+  },
+  date: {
+    fontSize: 20,
+    fontWeight: '300',
+    lineHeight: 24,
+    marginBottom: 10
+  },
+  desc: {
+    fontSize: 16,
+    fontWeight: '300',
+    lineHeight: 24
+  }
+});
+
+const tabBar = StyleSheet.create({
+
+});
+
 export {
-  HomeStyle
+  Home,
+  VaccineInfo,
+  tabBar
 };

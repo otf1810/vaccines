@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { ImageBackground, ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native';
 import {
   Dimensions,
   Image,
@@ -10,69 +10,87 @@ import {
   Text,
 } from 'react-native';
 import { Card, Divider, ListItem, SearchBar } from 'react-native-elements';
-import { HomeStyle as styles } from '../../../styles/Style';
+import { Home as styles } from '../../../styles/Style';
 
 const screen = Dimensions.get('screen');
 
-export default Home = () => {
+export default Home = ({ navigation }) => {
+
+  const banner = require('../../assets/home/home_banner.jpeg');
+
+  const newsList = [
+    {
+      title: '华为大众“牵手”疑云：合资生',
+      content: '据媒体2月17日报道，大众汽车集团计划以数。',
+    },
+    {
+      title: '华为大众“牵手”疑云：合资生',
+      content: '据媒体2月17日报道，大众汽车集团计划以数。',
+    },
+    {
+      title: '华为大众“牵手”疑云：合资生',
+      content: '据媒体2月17日报道，大众汽车集团计划以数。',
+    },
+  ];
+
+  const vaccineList = [
+    {
+      title: '科兴',
+      img: require('../../assets/home/vaccines.jpg'),
+    },
+    {
+      title: '科兴',
+      img: require('../../assets/home/vaccines.jpg'),
+    },
+    {
+      title: '科兴',
+      img: require('../../assets/home/vaccines.jpg'),
+    },
+  ];
+
   return (
     <ScrollView contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
 
       <Image
         style={styles.banner}
-        source={require('../../assets/home/home_banner.jpeg')}
+        source={banner}
       />
-
-      {/* <Text style={styles.newsHeader}>最新资讯</Text>
-        <ListItem
-          Component={TouchableHighlight}
-          containerStyle={{borderRadius: 0.5}}
-          disabledStyle={{ opacity: 0.5 }}
-          onLongPress={() => console.log('onLongPress()')}
-          onPress={() => console.log('onLongPress()')}
-          pad={20}
-          bottomDivider
-          topDivider>
-          <ListItem.Content>
-            <ListItem.Title>
-              <Text>第四金!速度滑冰男子500米</Text>
-            </ListItem.Title>
-          </ListItem.Content>
-          <Text>{'>'}</Text>
-        </ListItem> */}
 
       <View style={styles.newsBlock}>
         <View style={styles.newsHeader}>
-          <Text>最新资讯</Text>
+          <Text style={{color: 'black'}}>最新资讯</Text>
           <TouchableOpacity>
             <Image style={styles.more} source={require('../../assets/home/arrow.png')}></Image>
           </TouchableOpacity>
         </View>
         <View style={styles.newsItemList}>
-          <TouchableOpacity style={styles.newsItem}>
-            <Text style={styles.newsTitle}>华为大众“牵手”疑云：合资生</Text>
-            <Text style={styles.newsContent}>据媒体2月17日报道，大众汽车集团计划以数。</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.newsItem}>
-            <Text style={styles.newsTitle}>华为大众“牵手”疑云：合资生</Text>
-            <Text style={styles.newsContent}>据媒体2月17日报道，大众汽车集团计划以数。</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.newsItem}>
-            <Text style={styles.newsTitle}>华为大众“牵手”疑云：合资生</Text>
-            <Text style={styles.newsContent}>据媒体2月17日报道，大众汽车集团计划以数。</Text>
-          </TouchableOpacity>
+          {newsList.map((news, index) => {
+            return (
+              // TODO：页面跳转时将对应的id传到下一个页面
+              <TouchableOpacity key={index} style={styles.newsItem}>
+                <Text style={styles.newsTitle}>{news.title}</Text>
+                <Text style={styles.newsContent}>{news.content}</Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </View>
 
-
-      {/* <TouchableOpacity>
-          <Card containerStyle={{borderRadius: 0.8}} wrapperStyle={{borderRadius:0.8}}>
-            <Card.Title>布偶猫</Card.Title>
-            <Card.Image
-              source={require('../../assets/cat.jpg')}
-            />
-          </Card>
-        </TouchableOpacity> */}
+      <View style={styles.vaccineBlock}>
+        <View style={styles.vaccineHeader}>
+          <Text style={{color: 'black'}}>疫苗列表</Text>
+        </View>
+        {vaccineList.map((vaccine, index) => {
+          return (
+            // TODO：页面跳转时将对应的id传到下一个页面
+            <TouchableOpacity key={index} onPress={() => { navigation.navigate('VaccineInfo') }}>
+              <ImageBackground style={styles.vaccinesImg} imageStyle={{ borderRadius: 20 }} source={vaccine.img}>
+                <Text style={styles.vaccinesName}>{vaccine.title}</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
 
     </ScrollView>
 

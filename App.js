@@ -11,6 +11,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
+// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {
   Button,
   Dimensions,
@@ -20,15 +21,17 @@ import {
   View,
 } from 'react-native';
 import Home from './app/src/pages/Home';
+import VaccineInfo from './app/src/pages/VaccineInfo';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+// const Tab = createMaterialBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
 const TabBar = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="首页" component={Home} />
+    <Tab.Navigator screenOptions={{display: 'none'}}>
+      <Tab.Screen name="首页" component={Home} options={{ headerShown: false }}/>
       <Tab.Screen name="Messages" component={Messages} />
     </Tab.Navigator>
   );
@@ -51,9 +54,9 @@ const App = () => {
   return (
     <>    
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen name="Home" component={TabBar} options={{ headerShown: false }} />
-          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="VaccineInfo" component={VaccineInfo} options={{ headerShown: false }}/>
           <Stack.Screen name="Settings" component={Settings} />
         </Stack.Navigator>
       </NavigationContainer>
