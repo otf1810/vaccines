@@ -22,6 +22,7 @@ import {
 } from 'react-native';
 import Home from './app/src/pages/Home';
 import VaccineInfo from './app/src/pages/VaccineInfo';
+import Order from './app/src/pages/Order';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -57,7 +58,7 @@ const App = () => {
         <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen name="Home" component={TabBar} options={{ headerShown: false }} />
           <Stack.Screen name="VaccineInfo" component={VaccineInfo} options={{ headerShown: false }}/>
-          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="Order" component={Order} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

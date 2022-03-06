@@ -10,7 +10,7 @@ import {
   Text,
 } from 'react-native';
 import { Card, Divider, ListItem, SearchBar } from 'react-native-elements';
-import { Home as styles } from '../../../styles/Style';
+import { t } from 'react-native-tailwindcss';
 
 const screen = Dimensions.get('screen');
 
@@ -49,43 +49,47 @@ export default Home = ({ navigation }) => {
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
+    <ScrollView contentContainerStyle={[t.itemsCenter]} showsVerticalScrollIndicator={false}>
 
       <Image
-        style={styles.banner}
+        style={[{ width: 370, height: screen.height / 5 }, t.roundedLg, t.mT5, t.mB4]}
         source={banner}
       />
 
-      <View style={styles.newsBlock}>
-        <View style={styles.newsHeader}>
-          <Text style={{color: 'black'}}>最新资讯</Text>
+      <View style={[{width: 370}, t.itemsCenter, t.bgWhite, t.roundedLg, t.mB4]}>
+        <View style={[{ width: 370 }, t.flexRow, t.justifyBetween, t.itemsCenter, t.pX5, t.pT3]}>
+          <Text style={[t.textBlack]}>最新资讯</Text>
           <TouchableOpacity>
-            <Image style={styles.more} source={require('../../assets/home/arrow.png')}></Image>
+            <Image style={[t.h5, t.w5]} source={require('../../assets/home/more.png')}></Image>
           </TouchableOpacity>
         </View>
-        <View style={styles.newsItemList}>
+        <View style={[{ width: 370 }, t.textBlack, t.justifyCenter, t.itemsCenter]}>
           {newsList.map((news, index) => {
             return (
               // TODO：页面跳转时将对应的id传到下一个页面
-              <TouchableOpacity key={index} style={styles.newsItem}>
-                <Text style={styles.newsTitle}>{news.title}</Text>
-                <Text style={styles.newsContent}>{news.content}</Text>
+              <>
+              <TouchableOpacity key={index} style={[{ width: 345 }, t.bgWhite, t.roundedLg, t.p2]}>
+                <Text style={[t.textBlack, t.textBase, t.fontBold, { lineHeight: 28 }]}>{news.title}</Text>
+                <Text style={[t.textBlack, t.textSm, { lineHeight: 24 }]}>{news.content}</Text>
               </TouchableOpacity>
+              {index == newsList.length - 1 ? null : <View style={[{width: 370}, t.border2, t.borderGray100]}></View>}
+              
+              </>
             );
           })}
         </View>
       </View>
 
-      <View style={styles.vaccineBlock}>
-        <View style={styles.vaccineHeader}>
-          <Text style={{color: 'black'}}>疫苗列表</Text>
+      <View style={[{ width: 370 }, t.itemsCenter, t.bgWhite, t.roundedLg, t.mB4]}>
+        <View style={[{ width: 350 }, t.selfStart, t.pY4, t.mL3]}>
+          <Text style={[t.textBlack]}>疫苗列表</Text>
         </View>
         {vaccineList.map((vaccine, index) => {
           return (
             // TODO：页面跳转时将对应的id传到下一个页面
             <TouchableOpacity key={index} onPress={() => { navigation.navigate('VaccineInfo') }}>
-              <ImageBackground style={styles.vaccinesImg} imageStyle={{ borderRadius: 20 }} source={vaccine.img}>
-                <Text style={styles.vaccinesName}>{vaccine.title}</Text>
+              <ImageBackground style={[{ width: 350, height: screen.height / 5 }, t.mB6]} imageStyle={[t.roundedLg]} source={vaccine.img}>
+                <Text style={[t.textWhite, t.text2xl, t.m2]}>{vaccine.title}</Text>
               </ImageBackground>
             </TouchableOpacity>
           );

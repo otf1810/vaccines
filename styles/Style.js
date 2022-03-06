@@ -65,7 +65,7 @@ const Home = StyleSheet.create({
     alignItems: 'center'
   },
   vaccineHeader: {
-    wdith: 350,
+    width: 350,
     alignSelf: 'flex-start',
     paddingVertical: 15,
     marginLeft: 10.5
@@ -115,6 +115,12 @@ const VaccineInfo = StyleSheet.create({
     fontSize: 16,
     fontWeight: '300',
     lineHeight: 24
+  },
+  commentItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    
   }
 });
 
