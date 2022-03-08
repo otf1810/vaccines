@@ -7,7 +7,7 @@
  */
 import 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerToggleButton } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
@@ -23,20 +23,34 @@ import {
 import Home from './app/src/pages/Home';
 import VaccineInfo from './app/src/pages/VaccineInfo';
 import Order from './app/src/pages/Order';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-// const Tab = createMaterialBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-const TabBar = () => {
+const TabsScreen = () => {
   return (
-    <Tab.Navigator screenOptions={{display: 'none'}}>
-      <Tab.Screen name="首页" component={Home} options={{ headerShown: false }}/>
-      <Tab.Screen name="Messages" component={Messages} />
+    <Tab.Navigator
+      screenOptions={({ navigation }) => ({
+        headerLeft: () => <DrawerToggleButton />
+      })}>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Messages" component={Messages} />
     </Tab.Navigator>
   );
 }
+
+const StackScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={TabsScreen} />
+      <Stack.Screen name="VaccineInfo" component={VaccineInfo} />
+      <Stack.Screen name="Order" component={Order} />
+    </Stack.Navigator>
+  )
+}
+
 
 const Messages = () => {
   return <Text>I'm Messages</Text>
@@ -53,14 +67,14 @@ const Settings = () => {
 
 const App = () => {
   return (
-    <>    
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Home'>
-          <Stack.Screen name="Home" component={TabBar} options={{ headerShown: false }} />
-          <Stack.Screen name="VaccineInfo" component={VaccineInfo} options={{ headerShown: false }}/>
-          <Stack.Screen name="Order" component={Order} options={{ headerShown: false }} />
-        </Stack.Navigator>
-      </NavigationContainer>
+    <>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Drawer.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+            <Drawer.Screen name='Home' component={StackScreen} />
+          </Drawer.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </>
   )
 };
