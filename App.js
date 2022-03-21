@@ -1,42 +1,54 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 import 'react-native-gesture-handler';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator, DrawerToggleButton } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerToggleButton, useDrawerProgress } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
-// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import {
-  Button,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
-import Home from './app/src/pages/Home';
-import VaccineInfo from './app/src/pages/VaccineInfo';
-import Order from './app/src/pages/Order';
+import React from 'react';
+import { Animated, Text } from 'react-native';
+import Home from './app/src/pages/home/Home';
+import VaccineInfo from './app/src/pages/vaccineInfo/VaccineInfo';
+import Order from './app/src/pages/order/Order';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Login from './app/src/pages/login/Login';
+import Register from './app/src/pages/register/Register';
+import Profile from './app/src/pages/profile/Profile';
+import { Button } from 'react-native-elements';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+tabBarIcon = (route, focused, size) => {
+  // console.log('.....')
+  var iconName
+  if (route.name === '首页') {
+    iconName = focused
+      ? 'home'
+      : 'home-outline';
+  } else if (route.name === '信息') {
+    iconName = focused ? 'mail-open' : 'mail-outline';
+  } else if (route.name === '个人中心') {
+    iconName = focused ? 'person' : 'person-outline';
+  }
+  return <Icon name={iconName} size={25} color='white' />
+}
 
 const TabsScreen = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ navigation }) => ({
-        headerLeft: () => <DrawerToggleButton />
+      labeled={false}
+      shifting
+      barStyle={{ backgroundColor: '#4169E1' }}
+      screenOptions={({ navigation, route }) => ({
+        // headerLeft: () => <DrawerToggleButton />,
+        tabBarIcon: ({ focused, color, size }) => tabBarIcon(route, focused, size)
       })}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="首页" component={Home} options={{ headerShown: true }} />
+      <Tab.Screen name="信息" component={Messages} />
+      <Tab.Screen name="个人中心" component={Profile} />
     </Tab.Navigator>
   );
 }
@@ -55,15 +67,6 @@ const StackScreen = () => {
 const Messages = () => {
   return <Text>I'm Messages</Text>
 }
-
-const Profile = () => {
-  return <Text>I'm Profile</Text>
-}
-
-const Settings = () => {
-  return <Text>I'm Settings</Text>
-}
-
 
 const App = () => {
   return (

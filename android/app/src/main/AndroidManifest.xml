@@ -2,6 +2,9 @@
   package="com.awesomeproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
       android:name=".MainApplication"
@@ -10,6 +13,9 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <meta-data
+        android:name="com.amap.api.v2.apikey"
+        android:value="6014db236ba054f5a2115a6787f2e5d4"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

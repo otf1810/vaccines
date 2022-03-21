@@ -1,13 +1,12 @@
 import React, { Component, useState } from 'react';
-import { AppRegistry, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { AppRegistry, StyleSheet, View, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text } from 'react-native-elements';
 import { name as appName } from './app.json';
 import Picker from 'react-native-picker';
 
-export default Time = () => {
+export default DatePicker = (props) => {
 
-  const [currentDate, setCurrentDate] = useState('请选择接种日期');
-  const [isShown, setIsShown] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
+  const { time, setTime } = props;
 
   //获取当前日期  格式如 2018-12-15
   const _getCurrentDate = () => {
@@ -60,24 +59,28 @@ export default Time = () => {
     return date;
   }
   //打开日期选择 视图
-   const _showDatePicker = () => {
-     if (isShown === true) return;
+  const _showDatePicker = () => {
+    Keyboard.dismiss();
     var year = ''
     var month = ''
     var day = ''
     var dateStr = _getCurrentDate()
-    console.log('dateStr',dateStr)
+    console.log('dateStr', dateStr)
     year = dateStr.substring(0, 4)
     month = parseInt(dateStr.substring(5, 7))
     day = parseInt(dateStr.substring(8, 10))
     Picker.init({
+      // pickerToolBarBg: [60, 105, 225, 1],
       pickerTitleText: '请选择预约日期',
+      pickerTitleColor: [0, 0, 0, 1],
       pickerCancelBtnText: '取消',
+      pickerCancelBtnColor: [0, 0, 0, 1],
       pickerConfirmBtnText: '确定',
+      pickerConfirmBtnColor: [0, 0, 0, 1],
       selectedValue: [year + '年', month + '月', day + '日'],
       pickerBg: [255, 255, 255, 1],
       pickerData: _createDateData(),
-      pickerFontColor: [33, 33, 33, 1],
+      pickerFontColor: [0, 0, 0, 1],
       onPickerConfirm: (pickedValue, pickedIndex) => {
         var year = pickedValue[0].substring(0, pickedValue[0].length - 1)
         var month = pickedValue[1].substring(0, pickedValue[1].length - 1)
@@ -85,31 +88,26 @@ export default Time = () => {
         var day = pickedValue[2].substring(0, pickedValue[2].length - 1)
         day = day.padStart(2, '0')
         let str = year + ' 年 ' + month + ' 月 ' + day + ' 日 '
-        setCurrentDate(str);
-        setIsShown(false);
+        setTime(str);
       },
       onPickerCancel: (pickedValue, pickedIndex) => {
-        setIsShown(false);
-        console.log('date', pickedValue, pickedIndex);
+        console.log('onPickerCancel', pickedValue, pickedIndex);
       },
       onPickerSelect: (pickedValue, pickedIndex) => {
-        console.log('date', pickedValue, pickedIndex);
+        console.log('onPickerSelect', pickedValue, pickedIndex);
       }
     });
     Picker.show();
-    setIsShown(true);
   }
-    return (
-          <TouchableOpacity style={styles.container} onPress={() => _showDatePicker()}>
-            <Text style={styles.textStyle}>{currentDate}</Text>
-          </TouchableOpacity>
-      // <View style={styles.container}>
-      //   <View style={styles.content}>
-      //     {/* <Text style={styles.textStyle}>选择日期</Text> */}
-      //   </View>
-      // </View>
-    )
-  }
+
+  return (
+    <>
+      <TouchableOpacity style={styles.container} onPress={_showDatePicker}>
+        <Text style={{ fontSize: 18, color: time == '' ? 'rgb(134, 147, 158)' : 'black' }}>{time == '' ? '请选择接种日期' : time}</Text>
+      </TouchableOpacity>
+    </>
+  )
+}
 
 const styles = StyleSheet.create({
   textStyle: {
@@ -121,7 +119,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginLeft: 7
+    marginLeft: 5
     // alignItems: 'center'
   },
   content: {

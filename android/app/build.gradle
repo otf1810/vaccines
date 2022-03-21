@@ -141,6 +141,14 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            storeFile file("C:/Users/14412/Programme/react_native_projects/vaccines/android/app/test.keystore")
+            storePassword "feng17"
+            keyAlias "my-key-alias"
+            keyPassword "feng17"
+        }
+    }
     splits {
         abi {
             reset()
