@@ -48,5 +48,9 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://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@github.com/otf1810/vaccines",
+  "author": "outf <1441281543@qq.com>",
+  "license": "MIT"
 }
